@@ -13,8 +13,12 @@ def main():
     conn, addr = server_socket.accept() # wait for client
 
     with conn:
-        conn.recv(1024)
-        conn.send(pong.encode())
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            if data.strip() == b'PING':
+                conn.send(pong.encode())
 
 
 if __name__ == "__main__":
