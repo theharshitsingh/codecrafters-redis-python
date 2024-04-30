@@ -7,14 +7,13 @@ def main():
     print("Logs from your program will appear here!")
     pong  = "+PONG\r\n"
 
-    # Uncomment this to pass the first stage
-    
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     conn, addr = server_socket.accept() # wait for client
 
     with conn:
         while True:
             data = conn.recv(1024)
+            print(data)
             if not data:
                 break
             if data.strip() == b'PING':
